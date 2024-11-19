@@ -46,6 +46,10 @@ Route::get('operacion/{tipo}/{n1}/{n2}', function($tipo, $n1, $n2) {
     }
 
     return "Resultado: " . $resultado;
-});
+})
+
+->where('tipo', 'suma|resta|multiplicacion|division') 
+->where('n1', '[0-9]+') 
+->where('n2', '[0-9]+'); 
 
 require __DIR__.'/auth.php';
