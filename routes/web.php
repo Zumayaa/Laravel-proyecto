@@ -17,4 +17,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/saludar/{nombre}', function ($nombre) {
+return "¡Hola, $nombre!";
+});
+
+Route::get('operacion/{tipo}/{n1}/{n2}', function($tipo, $n1, $n2) {
+    $resultado = 0;
+
+    switch ($tipo) {
+        case 'suma':
+            $resultado = $n1 + $n2;
+            break;
+        case 'resta':
+            $resultado = $n1 - $n2;
+            break;
+        case 'multiplicacion':
+            $resultado = $n1 * $n2;
+            break;
+        case 'division':
+            if ($n2 != 0) {
+                $resultado = $n1 / $n2;
+            } else {
+                return "Error: No se puede dividir entre 0.";
+            }
+            break;
+        default:
+            return "Error: Operación no válida. Usa 'suma', 'resta', 'multiplicacion' o 'division'.";
+    }
+
+    return "Resultado: " . $resultado;
+});
+
 require __DIR__.'/auth.php';
